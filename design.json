@@ -1,0 +1,119 @@
+{
+  "project": {
+    "name": "SkyFort Website",
+    "description": "Cloud firewall web landing page with dark cyber-style UI"
+  },
+
+  "colors": {
+    "primary": "#4D7BFF",
+    "primaryLight": "#6D96FF",
+    "accent": "#68E5FF",
+    "gradientStart": "#0D0F24",
+    "gradientEnd": "#1B1D35",
+    "backgroundDark": "#0A0C1A",
+    "cardBackground": "#111426",
+    "textPrimary": "#FFFFFF",
+    "textSecondary": "#A6A7B5",
+    "success": "#4CE4A5",
+    "warning": "#FFB74A",
+    "danger": "#FF5C5C",
+    "border": "rgba(255,255,255,0.08)"
+  },
+
+  "typography": {
+    "fontFamily": "Inter, Poppins, sans-serif",
+    "headings": {
+      "h1": {"size": "48px", "weight": "700"},
+      "h2": {"size": "36px", "weight": "700"},
+      "h3": {"size": "28px", "weight": "600"},
+      "h4": {"size": "22px", "weight": "500"}
+    },
+    "body": {
+      "large": "18px",
+      "regular": "16px",
+      "small": "14px"
+    }
+  },
+
+  "layout": {
+    "containerWidth": "1200px",
+    "sectionSpacing": "120px",
+    "gridColumns": 12
+  },
+
+  "components": {
+    "navbar": {
+      "logo": "SkyFort",
+      "links": ["Product", "About", "Business", "How it works", "Blog", "FAQ", "Contact"],
+      "cta": {"text": "Pricing", "type": "button"}
+    },
+
+    "heroSection": {
+      "title": "SkyFort — one-stop solution to secure your network",
+      "subtitle": "Simply order SkyFort on our web portal...",
+      "buttons": [
+        {"text": "Sign Up Now", "variant": "primary"},
+        {"text": "Read More", "variant": "outline"}
+      ],
+      "3dElements": [
+        "Cloud shield icon",
+        "Lock",
+        "Geo marker",
+        "Globe"
+      ]
+    },
+
+    "trustedBy": {
+      "title": "Trusted by 350+ happy customers",
+      "logos": ["SK Telecom", "Hmall", "Lotte", "Naver", "Coupang", "MBC", "KBS"]
+    },
+
+    "features": {
+      "title": "Why SkyFort?",
+      "items": [
+        {
+          "icon": "shield",
+          "title": "Reliable protection",
+          "description": "We manage your network traffic securely."
+        },
+        {
+          "icon": "gear",
+          "title": "Easy to set up",
+          "description": "Install and secure your network in minutes."
+        },
+        {
+          "icon": "virus",
+          "title": "Virus protection",
+          "description": "AI tools to keep malware away."
+        }
+      ]
+    },
+
+    "howItWorks": {
+      "title": "How it works",
+      "steps": [
+        {
+          "title": "Data Encryption",
+          "text": "SkyFort encrypts and protects your network traffic."
+        },
+        {
+          "title": "AI Threat Detection",
+          "text": "Constantly learning and adapting to keep your data safe."
+        },
+        {
+          "title": "Cloud-Based Firewall",
+          "text": "Secure connection from anywhere."
+        }
+      ]
+    },
+
+    "footer": {
+      "columns": [
+        {"title": "Product", "links": ["Overview", "Pricing", "Download"]},
+        {"title": "Company", "links": ["About", "Careers", "Press"]},
+        {"title": "Support", "links": ["Help Center", "Contact", "FAQ"]}
+      ],
+      "copyright": "© 2025 SkyFort. All rights reserved."
+    }
+  }
+}
