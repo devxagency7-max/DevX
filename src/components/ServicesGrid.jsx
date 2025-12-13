@@ -143,8 +143,8 @@ export default function ServicesGrid() {
             <div className="container mx-auto px-6 relative z-10">
                 <div className="flex flex-col md:flex-row justify-between items-end mb-16">
                     <div>
-                        <span className="text-devx-accent font-semibold tracking-wider uppercase mb-2 block">What We Deliver</span>
-                        <h2 className="text-3xl md:text-5xl font-bold">End-to-End Solutions</h2>
+                        <span className="text-devx-accent font-semibold tracking-wider uppercase mb-2 block">Services</span>
+                        <h2 className="text-3xl md:text-5xl font-bold">Our Expertise</h2>
                     </div>
                     <p className="text-white/50 max-w-md mt-6 md:mt-0 text-right md:text-left">
                         Comprehensive services tailored to your specific industry needs.

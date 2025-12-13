@@ -4,7 +4,6 @@ import { Menu, X } from 'lucide-react';
 import { AppContext } from '../App';
 
 const navLinks = [
-    { name: 'Product', href: '#product' },
     { name: 'About', href: '#about' },
     { name: 'Services', href: '#services' },
     { name: 'Portfolio', href: '#portfolio' },

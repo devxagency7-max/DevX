@@ -1,231 +1,297 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, Check, ChevronRight, Upload } from 'lucide-react';
+import { X, ArrowRight, Check, Sparkles, Code, Rocket, Globe } from 'lucide-react';
 
 const steps = [
-    { id: 1, title: 'Project Details' },
-    { id: 2, title: 'Scope & Budget' },
-    { id: 3, title: 'Contact Info' },
+    { id: 1, title: 'Contact Info' },
+    { id: 2, title: 'Project Details' },
+    { id: 3, title: 'Budget & Timeline' }
 ];
 
 export default function StartProjectPanel({ isOpen, onClose }) {
     const [currentStep, setCurrentStep] = useState(1);
+    const [formData, setFormData] = useState({
+        name: '', email: '', company: '',
+        projectType: '', description: '',
+        budget: '', timeline: ''
+    });
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
 
-    // Focus trap could be implemented here with useEffect
-
     const handleNext = () => {
-        if (currentStep < steps.length) setCurrentStep(currentStep + 1);
+        if (currentStep < 3) setCurrentStep(c => c + 1);
+        else handleSubmit();
     };
 
     const handleBack = () => {
-        if (currentStep > 1) setCurrentStep(currentStep - 1);
+        if (currentStep > 1) setCurrentStep(c => c - 1);
     };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+    const handleSubmit = async () => {
         setIsSubmitting(true);
-        // Mock submission
-        setTimeout(() => {
-            setIsSubmitting(false);
-            setIsSuccess(true);
-        }, 1500);
+        // Simulate API call
+        await new Promise(resolve => setTimeout(resolve, 2000));
+        setIsSubmitting(false);
+        setIsSuccess(true);
+    };
+
+    const containerVariants = {
+        hidden: { x: '100%', opacity: 0 },
+        visible: { x: '0%', opacity: 1, transition: { type: 'spring', damping: 25, stiffness: 200 } },
+        exit: { x: '100%', opacity: 0 }
     };
 
     return (
         <motion.div
-            initial={{ x: '100%' }}
-            animate={{ x: 0 }}
-            exit={{ x: '100%' }}
-            transition={{ type: 'spring', damping: 25, stiffness: 200 }}
-            className="fixed inset-y-0 right-0 z-50 w-full md:w-[80vw] lg:w-[70vw] bg-devx-dark border-l border-white/10 shadow-[0_0_50px_rgba(0,0,0,0.5)] flex flex-col md:flex-row overflow-hidden"
+            className="fixed inset-0 z-50 flex justify-end backdrop-blur-sm bg-black/20"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
         >
-            <button
-                onClick={onClose}
-                className="absolute top-6 right-6 z-10 text-white/50 hover:text-white transition-colors"
+            {/* Backdrop click to close */}
+            <div className="absolute inset-0" onClick={onClose}></div>
+
+            <motion.div
+                variants={containerVariants}
+                initial="hidden"
+                animate="visible"
+                exit="exit"
+                className="relative w-full md:w-[800px] h-full bg-devx-dark border-l border-white/10 shadow-2xl flex flex-col md:flex-row overflow-hidden"
+                onClick={e => e.stopPropagation()}
             >
-                <X size={32} />
-            </button>
+                {/* Close Button */}
+                <button
+                    onClick={onClose}
+                    className="absolute top-6 right-6 z-20 p-2 text-white/50 hover:text-white bg-white/5 rounded-full hover:bg-white/10 transition-all"
+                >
+                    <X size={24} />
+                </button>
 
-            {/* Left Column: Process Summary */}
-            <div className="hidden md:flex w-1/3 bg-devx-blue p-12 flex-col justify-between relative overflow-hidden">
-                {/* Decorative background elements */}
-                <div className="absolute top-0 left-0 w-full h-full opacity-10 pointer-events-none">
-                    <div className="absolute top-10 -left-10 w-64 h-64 bg-devx-accent rounded-full blur-[100px]"></div>
-                </div>
+                {/* Left Panel - Info */}
+                <div className="hidden md:flex flex-col justify-between w-1/3 bg-devx-blue/10 p-10 relative overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-br from-devx-accent/10 to-transparent"></div>
 
-                <div>
-                    <h2 className="text-3xl font-bold mb-8">How We Work</h2>
-                    <div className="space-y-8">
-                        {[
-                            { title: 'Discovery', desc: 'We dive deep into your goals and challenges.' },
-                            { title: 'Strategy', desc: 'We blueprint the perfect technical solution.' },
-                            { title: 'Build', desc: 'Our experts craft your product with precision.' },
-                            { title: 'Iterate', desc: 'We refine and scale based on real feedback.' },
-                        ].map((step, idx) => (
-                            <div key={idx} className="relative pl-6 border-l-2 border-white/10">
-                                <div className={`absolute -left-[9px] top-0 w-4 h-4 rounded-full border-2 border-devx-dark ${idx === 0 ? 'bg-devx-accent border-devx-accent' : 'bg-white/20'}`}></div>
-                                <h3 className="text-lg font-semibold text-white mb-1">{step.title}</h3>
-                                <p className="text-white/50 text-sm">{step.desc}</p>
+                    <div className="relative z-10">
+                        <div className="flex items-center space-x-2 text-devx-accent mb-6">
+                            <Sparkles size={20} />
+                            <span className="font-semibold tracking-wide">THE PROCESS</span>
+                        </div>
+                        <h2 className="text-3xl font-bold mb-4">Let's Build the Future.</h2>
+                        <p className="text-white/60 text-sm leading-relaxed">
+                            We partner with visionaries to create digital experiences that define the next generation of the web.
+                        </p>
+                    </div>
+
+                    <div className="relative z-10 space-y-8">
+                        <div className="flex items-start space-x-4">
+                            <div className="p-2 bg-white/5 rounded-lg text-devx-accent"><Globe size={20} /></div>
+                            <div>
+                                <h4 className="font-semibold text-sm">Global Standards</h4>
+                                <p className="text-xs text-white/50 mt-1">World-class engineering practices.</p>
                             </div>
-                        ))}
+                        </div>
+                        <div className="flex items-start space-x-4">
+                            <div className="p-2 bg-white/5 rounded-lg text-devx-accent"><Code size={20} /></div>
+                            <div>
+                                <h4 className="font-semibold text-sm">Clean Code</h4>
+                                <p className="text-xs text-white/50 mt-1">Scalable, maintainable architecture.</p>
+                            </div>
+                        </div>
+                        <div className="flex items-start space-x-4">
+                            <div className="p-2 bg-white/5 rounded-lg text-devx-accent"><Rocket size={20} /></div>
+                            <div>
+                                <h4 className="font-semibold text-sm">Rapid Delivery</h4>
+                                <p className="text-xs text-white/50 mt-1">From concept to launch in record time.</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
-                <div className="pt-8 border-t border-white/10">
-                    <p className="text-white/40 text-sm">Need help instantly?</p>
-                    <a href="mailto:project@devx.com" className="text-devx-accent hover:underline">project@devx.com</a>
-                </div>
-            </div>
-
-            {/* Right Column: Form */}
-            <div className="flex-1 p-8 md:p-12 overflow-y-auto bg-devx-dark relative">
-                {!isSuccess ? (
-                    <form onSubmit={handleSubmit} className="max-w-2xl mx-auto h-full flex flex-col">
-                        <div className="mb-8">
-                            <h2 className="text-3xl md:text-4xl font-bold mb-4">Let's Build Something <span className="text-devx-accent">Extraordinary</span></h2>
-                            <div className="flex items-center space-x-2 text-sm text-white/50">
-                                <span>Step {currentStep} of {steps.length}:</span>
-                                <span className="text-white font-medium">{steps[currentStep - 1].title}</span>
+                {/* Right Panel - Form */}
+                <div className="flex-1 p-8 md:p-12 overflow-y-auto relative no-scrollbar">
+                    {isSuccess ? (
+                        <div className="h-full flex flex-col items-center justify-center text-center">
+                            <div className="w-20 h-20 bg-green-500/20 rounded-full flex items-center justify-center mb-6 text-green-400">
+                                <Check size={40} />
                             </div>
+                            <h3 className="text-3xl font-bold mb-2">Request Received!</h3>
+                            <p className="text-white/60 max-w-xs mx-auto mb-8">
+                                Our team will review your project details and get back to you within 24 hours.
+                            </p>
+                            <button
+                                onClick={onClose}
+                                className="px-8 py-3 bg-white/10 hover:bg-white/20 text-white rounded-full transition-all"
+                            >
+                                Close Panel
+                            </button>
+                        </div>
+                    ) : (
+                        <div className="h-full flex flex-col">
                             {/* Progress Bar */}
-                            <div className="w-full h-1 bg-white/10 mt-4 rounded-full overflow-hidden">
-                                <motion.div
-                                    initial={{ width: 0 }}
-                                    animate={{ width: `${(currentStep / steps.length) * 100}%` }}
-                                    className="h-full bg-devx-accent"
-                                />
+                            <div className="mb-10">
+                                <div className="flex justify-between mb-2">
+                                    {steps.map((step) => (
+                                        <div
+                                            key={step.id}
+                                            className={`text-xs font-medium tracking-wide ${currentStep >= step.id ? 'text-devx-accent' : 'text-white/30'}`}
+                                        >
+                                            0{step.id} {step.title}
+                                        </div>
+                                    ))}
+                                </div>
+                                <div className="h-1 bg-white/10 rounded-full overflow-hidden">
+                                    <motion.div
+                                        className="h-full bg-devx-accent"
+                                        initial={{ width: '0%' }}
+                                        animate={{ width: `${(currentStep / 3) * 100}%` }}
+                                        transition={{ duration: 0.3 }}
+                                    />
+                                </div>
                             </div>
-                        </div>
 
-                        <div className="flex-grow">
-                            {currentStep === 1 && (
-                                <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
-                                    <div>
-                                        <label className="block text-sm text-white/70 mb-2">Project Name</label>
-                                        <input type="text" className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 focus:border-devx-accent focus:outline-none focus:ring-1 focus:ring-devx-accent transition-all" placeholder="e.g. NextGen SaaS Platform" />
-                                    </div>
-                                    <div>
-                                        <label className="block text-sm text-white/70 mb-2">Project Description</label>
-                                        <textarea rows={4} className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 focus:border-devx-accent focus:outline-none focus:ring-1 focus:ring-devx-accent transition-all" placeholder="Tell us about your vision..."></textarea>
-                                    </div>
-                                    <div>
-                                        <label className="block text-sm text-white/70 mb-2">Upload Attachments (Optional)</label>
-                                        <div className="border-2 border-dashed border-white/10 rounded-lg p-6 flex flex-col items-center justify-center text-white/40 hover:border-devx-accent/50 hover:bg-white/5 transition-all cursor-pointer">
-                                            <Upload className="mb-2" />
-                                            <span className="text-sm">Drag files here or click to browse</span>
-                                        </div>
-                                    </div>
-                                </motion.div>
-                            )}
+                            <form className="flex-grow space-y-6" onSubmit={(e) => e.preventDefault()}>
+                                <AnimatePresence mode="wait">
+                                    {currentStep === 1 && (
+                                        <motion.div
+                                            key="step1"
+                                            initial={{ opacity: 0, x: 20 }}
+                                            animate={{ opacity: 1, x: 0 }}
+                                            exit={{ opacity: 0, x: -20 }}
+                                            className="space-y-6"
+                                        >
+                                            <div className="space-y-4">
+                                                <label className="block text-sm font-medium text-white/70">Full Name</label>
+                                                <input
+                                                    type="text"
+                                                    className="w-full bg-white/5 border border-white/10 rounded-lg p-4 text-white focus:border-devx-accent focus:outline-none focus:ring-1 focus:ring-devx-accent transition-all"
+                                                    placeholder="John Doe"
+                                                    value={formData.name}
+                                                    onChange={e => setFormData({ ...formData, name: e.target.value })}
+                                                />
+                                            </div>
+                                            <div className="space-y-4">
+                                                <label className="block text-sm font-medium text-white/70">Email Address</label>
+                                                <input
+                                                    type="email"
+                                                    className="w-full bg-white/5 border border-white/10 rounded-lg p-4 text-white focus:border-devx-accent focus:outline-none focus:ring-1 focus:ring-devx-accent transition-all"
+                                                    placeholder="john@company.com"
+                                                    value={formData.email}
+                                                    onChange={e => setFormData({ ...formData, email: e.target.value })}
+                                                />
+                                            </div>
+                                            <div className="space-y-4">
+                                                <label className="block text-sm font-medium text-white/70">Company Name</label>
+                                                <input
+                                                    type="text"
+                                                    className="w-full bg-white/5 border border-white/10 rounded-lg p-4 text-white focus:border-devx-accent focus:outline-none focus:ring-1 focus:ring-devx-accent transition-all"
+                                                    placeholder="Acme Inc."
+                                                    value={formData.company}
+                                                    onChange={e => setFormData({ ...formData, company: e.target.value })}
+                                                />
+                                            </div>
+                                        </motion.div>
+                                    )}
 
-                            {currentStep === 2 && (
-                                <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-8">
-                                    <div>
-                                        <label className="block text-sm text-white/70 mb-4">Estimated Budget (USD)</label>
-                                        <div className="grid grid-cols-2 gap-4">
-                                            {['<$5k', '$5k - $15k', '$15k - $50k', '$50k+'].map(budget => (
-                                                <label key={budget} className="cursor-pointer group">
-                                                    <input type="radio" name="budget" className="hidden peer" />
-                                                    <div className="border border-white/10 rounded-lg p-4 text-center text-white/60 peer-checked:border-devx-accent peer-checked:bg-devx-accent/10 peer-checked:text-devx-accent transition-all hover:bg-white/5">
-                                                        {budget}
-                                                    </div>
-                                                </label>
-                                            ))}
-                                        </div>
-                                    </div>
+                                    {currentStep === 2 && (
+                                        <motion.div
+                                            key="step2"
+                                            initial={{ opacity: 0, x: 20 }}
+                                            animate={{ opacity: 1, x: 0 }}
+                                            exit={{ opacity: 0, x: -20 }}
+                                            className="space-y-6"
+                                        >
+                                            <div className="space-y-4">
+                                                <label className="block text-sm font-medium text-white/70">What are you building?</label>
+                                                <select
+                                                    className="w-full bg-white/5 border border-white/10 rounded-lg p-4 text-white focus:border-devx-accent focus:outline-none focus:ring-1 focus:ring-devx-accent transition-all appearance-none"
+                                                    value={formData.projectType}
+                                                    onChange={e => setFormData({ ...formData, projectType: e.target.value })}
+                                                >
+                                                    <option value="" className="bg-devx-dark">Select Project Type</option>
+                                                    <option value="web" className="bg-devx-dark">Web Application</option>
+                                                    <option value="mobile" className="bg-devx-dark">Mobile App</option>
+                                                    <option value="ecommerce" className="bg-devx-dark">E-Commerce</option>
+                                                    <option value="ai" className="bg-devx-dark">AI Integration</option>
+                                                </select>
+                                            </div>
+                                            <div className="space-y-4">
+                                                <label className="block text-sm font-medium text-white/70">Project Description</label>
+                                                <textarea
+                                                    className="w-full h-40 bg-white/5 border border-white/10 rounded-lg p-4 text-white focus:border-devx-accent focus:outline-none focus:ring-1 focus:ring-devx-accent transition-all resize-none"
+                                                    placeholder="Tell us about your vision..."
+                                                    value={formData.description}
+                                                    onChange={e => setFormData({ ...formData, description: e.target.value })}
+                                                />
+                                            </div>
+                                        </motion.div>
+                                    )}
 
-                                    <div>
-                                        <label className="block text-sm text-white/70 mb-4">Scope Checklist</label>
-                                        <div className="grid grid-cols-2 gap-3">
-                                            {['Web Development', 'Mobile App', 'AI Integration', 'UI/UX Design', 'Cloud Setup', 'Maintenance'].map(item => (
-                                                <label key={item} className="flex items-center space-x-3 cursor-pointer">
-                                                    <input type="checkbox" className="w-5 h-5 rounded border-white/20 bg-white/5 text-devx-accent focus:ring-devx-accent" />
-                                                    <span className="text-white/80">{item}</span>
-                                                </label>
-                                            ))}
-                                        </div>
-                                    </div>
-                                </motion.div>
-                            )}
+                                    {currentStep === 3 && (
+                                        <motion.div
+                                            key="step3"
+                                            initial={{ opacity: 0, x: 20 }}
+                                            animate={{ opacity: 1, x: 0 }}
+                                            exit={{ opacity: 0, x: -20 }}
+                                            className="space-y-6"
+                                        >
+                                            <div className="space-y-4">
+                                                <label className="block text-sm font-medium text-white/70">Estimated Budget</label>
+                                                <select
+                                                    className="w-full bg-white/5 border border-white/10 rounded-lg p-4 text-white focus:border-devx-accent focus:outline-none focus:ring-1 focus:ring-devx-accent transition-all appearance-none"
+                                                    value={formData.budget}
+                                                    onChange={e => setFormData({ ...formData, budget: e.target.value })}
+                                                >
+                                                    <option value="" className="bg-devx-dark">Select Budget Range</option>
+                                                    <option value="10-20k" className="bg-devx-dark">$10k - $20k</option>
+                                                    <option value="20-50k" className="bg-devx-dark">$20k - $50k</option>
+                                                    <option value="50-100k" className="bg-devx-dark">$50k - $100k</option>
+                                                    <option value="100k+" className="bg-devx-dark">$100k+</option>
+                                                </select>
+                                            </div>
+                                            <div className="space-y-4">
+                                                <label className="block text-sm font-medium text-white/70">Timeline Expectation</label>
+                                                <select
+                                                    className="w-full bg-white/5 border border-white/10 rounded-lg p-4 text-white focus:border-devx-accent focus:outline-none focus:ring-1 focus:ring-devx-accent transition-all appearance-none"
+                                                    value={formData.timeline}
+                                                    onChange={e => setFormData({ ...formData, timeline: e.target.value })}
+                                                >
+                                                    <option value="" className="bg-devx-dark">Select Timeline</option>
+                                                    <option value="1-2m" className="bg-devx-dark">1-2 Months</option>
+                                                    <option value="3-6m" className="bg-devx-dark">3-6 Months</option>
+                                                    <option value="6m+" className="bg-devx-dark">6+ Months</option>
+                                                </select>
+                                            </div>
+                                        </motion.div>
+                                    )}
+                                </AnimatePresence>
+                            </form>
 
-                            {currentStep === 3 && (
-                                <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
-                                    <div className="grid grid-cols-2 gap-6">
-                                        <div>
-                                            <label className="block text-sm text-white/70 mb-2">Name</label>
-                                            <input type="text" className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 focus:border-devx-accent focus:outline-none transition-all" />
-                                        </div>
-                                        <div>
-                                            <label className="block text-sm text-white/70 mb-2">Company</label>
-                                            <input type="text" className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 focus:border-devx-accent focus:outline-none transition-all" />
-                                        </div>
-                                    </div>
-                                    <div>
-                                        <label className="block text-sm text-white/70 mb-2">Email</label>
-                                        <input type="email" className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 focus:border-devx-accent focus:outline-none transition-all" />
-                                    </div>
-                                    <div>
-                                        <label className="block text-sm text-white/70 mb-2">Phone (Optional)</label>
-                                        <input type="tel" className="w-full bg-white/5 border border-white/10 rounded-lg px-4 py-3 focus:border-devx-accent focus:outline-none transition-all" />
-                                    </div>
-                                </motion.div>
-                            )}
-                        </div>
-
-                        <div className="pt-8 flex items-center justify-between">
-                            {currentStep > 1 ? (
+                            <div className="mt-8 flex justify-between">
                                 <button
-                                    type="button"
                                     onClick={handleBack}
-                                    className="px-6 py-3 text-white/60 hover:text-white transition-colors"
+                                    className={`text-white/50 hover:text-white transition-colors ${currentStep === 1 ? 'invisible' : 'visible'}`}
                                 >
                                     Back
                                 </button>
-                            ) : <div></div>}
-
-                            {currentStep < steps.length ? (
                                 <button
-                                    type="button"
                                     onClick={handleNext}
-                                    className="group flex items-center px-8 py-3 bg-white text-devx-dark font-bold rounded-lg hover:bg-white/90 transition-all"
-                                >
-                                    Next Step <ChevronRight size={18} className="ml-2 group-hover:translate-x-1 transition-transform" />
-                                </button>
-                            ) : (
-                                <button
-                                    type="submit"
                                     disabled={isSubmitting}
-                                    className="flex items-center px-8 py-3 bg-devx-accent text-white font-bold rounded-lg hover:shadow-[0_0_20px_rgba(77,123,255,0.5)] transition-all disabled:opacity-70"
+                                    className="px-8 py-3 bg-devx-accent hover:bg-devx-accent/90 text-white font-semibold rounded-full flex items-center space-x-2 transition-all disabled:opacity-50"
                                 >
-                                    {isSubmitting ? 'Submitting...' : 'Launch Project'}
+                                    {isSubmitting ? (
+                                        <span>Processing...</span>
+                                    ) : (
+                                        <>
+                                            <span>{currentStep === 3 ? 'Submit Project' : 'Next Step'}</span>
+                                            {currentStep !== 3 && <ArrowRight size={18} />}
+                                        </>
+                                    )}
                                 </button>
-                            )}
+                            </div>
                         </div>
-                    </form>
-                ) : (
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.9 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        className="h-full flex flex-col items-center justify-center text-center space-y-6"
-                    >
-                        <div className="w-24 h-24 rounded-full bg-green-500/20 flex items-center justify-center text-green-400 mb-6">
-                            <Check size={48} />
-                        </div>
-                        <h2 className="text-4xl font-bold">Proposal Received!</h2>
-                        <p className="text-white/60 max-w-md">
-                            Thanks for sharing your vision. Our team is already analyzing your requirements and will reach out within 24 hours.
-                        </p>
-                        <button
-                            onClick={onClose}
-                            className="px-8 py-3 border border-white/10 rounded-lg hover:bg-white/5 transition-all mt-8"
-                        >
-                            Return to Homepage
-                        </button>
-                    </motion.div>
-                )}
-            </div>
+                    )}
+                </div>
+            </motion.div>
         </motion.div>
     );
 }

@@ -1,11 +1,12 @@
 import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Autoplay, EffectCoverflow } from 'swiper/modules';
+import { Autoplay, EffectCoverflow, FreeMode } from 'swiper/modules';
 
 // Import Swiper styles
 import 'swiper/css';
 import 'swiper/css/effect-coverflow';
 import 'swiper/css/autoplay';
+import 'swiper/css/free-mode';
 
 // Using placeholder images for clients
 const clients = [
@@ -15,30 +16,52 @@ const clients = [
     { id: 4, name: 'Spotify', logo: '/assets/devx-logo.png' },
     { id: 5, name: 'Netflix', logo: '/assets/devx-logo.png' },
     { id: 6, name: 'Airbnb', logo: '/assets/devx-logo.png' },
+    // Duplicate for seamless loop
+    { id: 7, name: 'Google', logo: '/assets/devx-logo.png' },
+    { id: 8, name: 'Amazon', logo: '/assets/devx-logo.png' },
+    { id: 9, name: 'Microsoft', logo: '/assets/devx-logo.png' },
+    { id: 10, name: 'Spotify', logo: '/assets/devx-logo.png' },
+    { id: 11, name: 'Netflix', logo: '/assets/devx-logo.png' },
+    { id: 12, name: 'Airbnb', logo: '/assets/devx-logo.png' },
 ];
 
 export default function ClientsCarousel() {
     return (
-        <section id="clients" className="py-24 bg-transparent overflow-hidden">
+        <section id="clients" className="py-24 bg-transparent overflow-hidden relative">
+            {/* Force linear timing for continuous scroll */}
+            <style>
+                {`
+                    .swiper-wrapper {
+                        transition-timing-function: linear;
+                    }
+                `}
+            </style>
             <div className="container mx-auto px-6 mb-12 text-center">
                 <h2 className="text-3xl font-bold mb-4 opacity-80">Trusted by Industry Leaders</h2>
             </div>
 
             <Swiper
-                modules={[Autoplay, EffectCoverflow]}
+                modules={[Autoplay, EffectCoverflow, FreeMode]}
                 effect="coverflow"
                 grabCursor={true}
                 centeredSlides={true}
                 slidesPerView="auto"
                 loop={true}
-                speed={3000} // Slow continuous scroll feel
+                loopedSlides={8} // Ensure enough slides for loop
+                // velocity-based swipe configuration
+                freeMode={{
+                    enabled: true,
+                    momentum: true,
+                    momentumRatio: 0.8,
+                    momentumVelocityRatio: 1,
+                }}
+                // smooth transition speed
+                speed={3000}
+                // Increased touch sensitivity
+                touchRatio={1.5}
                 autoplay={{
-                    delay: 0,
+                    delay: 0, // Continuous
                     disableOnInteraction: false,
-                    pauseOnMouseEnter: true, // Pause on hover as requested
-                    reverseDirection: true, // Scroll right to left (default is left to right, reverse makes it right to left visually?) - actually Swiper default is LTR. 
-                    // Requirement: "Auto-scroll from right to left". Swiper usually goes LTR. RTL mode exists.
-                    // Let's rely on standard LTR but ensure it looks infinite.
                 }}
                 coverflowEffect={{
                     rotate: 0,
