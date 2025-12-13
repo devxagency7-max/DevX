@@ -13,7 +13,7 @@ export default function Footer() {
     ];
 
     return (
-        <footer className="bg-[#111325] border-t border-white/5 pt-16 pb-8 relative overflow-hidden">
+        <footer className="bg-devx-dark border-t border-white/5 pt-16 pb-8 relative overflow-hidden">
             {/* Background glow */}
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-3xl h-1 bg-devx-accent/50 blur-[100px]"></div>
 

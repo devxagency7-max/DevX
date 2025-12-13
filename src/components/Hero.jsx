@@ -3,7 +3,7 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { AppContext } from '../App';
 
 export default function Hero() {
-    const { setIsStartProjectOpen, setIsContactOpen } = useContext(AppContext);
+    const { setIsStartProjectOpen } = useContext(AppContext);
     const containerRef = useRef(null);
 
     // Parallax for binary background
@@ -69,7 +69,7 @@ export default function Hero() {
                     className="text-center lg:text-left"
                 >
                     <motion.div
-                        className="inline-block relative mb-8 lg:hidden"
+                        className="inline-block relative mb-8"
                         animate={{ scale: [0.98, 1.03, 0.98] }}
                         transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
                     >
@@ -98,14 +98,14 @@ export default function Hero() {
                         >
                             Start a Project
                         </motion.button>
-                        <motion.button
-                            onClick={() => setIsContactOpen(true)}
+                        <motion.a
+                            href="#contact"
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
                             className="px-8 py-4 bg-white/5 border border-white/10 text-white font-semibold rounded-full hover:bg-white/10 hover:border-devx-accent/50 transition-all w-full sm:w-auto inline-block text-center"
                         >
                             Contact Us
-                        </motion.button>
+                        </motion.a>
                     </div>
                 </motion.div>
 
@@ -122,8 +122,8 @@ export default function Hero() {
                         transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
                         className="absolute top-20 right-10 w-80 h-96 bg-devx-glass backdrop-blur-md rounded-2xl border border-white/10 p-6 shadow-2xl z-20"
                     >
-                        <div className="w-full h-40 bg-gradient-to-tr from-devx-accent/20 to-purple-500/20 rounded-lg mb-6 flex items-center justify-center p-6">
-                            <img src="/assets/devx-logo.png" alt="DevX Project" className="w-full h-full object-contain drop-shadow-[0_0_15px_rgba(77,123,255,0.4)]" />
+                        <div className="w-full h-40 bg-gradient-to-tr from-devx-accent/20 to-purple-500/20 rounded-lg mb-6 flex items-center justify-center">
+                            <div className="w-16 h-16 rounded-full bg-devx-accent/20 blur-xl"></div>
                         </div>
                         <div className="space-y-3">
                             <div className="h-2 bg-white/10 rounded w-3/4"></div>
