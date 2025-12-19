@@ -3,7 +3,7 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { AppContext } from '../App';
 
 export default function Hero() {
-    const { setIsStartProjectOpen } = useContext(AppContext);
+    const { setIsStartProjectOpen, setIsContactOpen } = useContext(AppContext);
     const containerRef = useRef(null);
 
     // Parallax for binary background
@@ -45,28 +45,33 @@ export default function Hero() {
 
     return (
         <section ref={containerRef} className="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden z-10 bg-devx-dark">
-            {/* Background Elements */}
-            <div className="absolute inset-0 bg-gradient-to-b from-devx-dark to-devx-blue pointer-events-none"></div>
-            <BinaryStream />
+            {/* Video Background */}
+            <div className="absolute inset-0 w-full h-full overflow-hidden">
+                <video
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    className="absolute top-1/2 left-1/2 w-full h-full object-cover -translate-x-1/2 -translate-y-1/2 opacity-80"
+                >
+                    <source src="/assets/hero_bagegraound.mp4" type="video/mp4" />
+                </video>
+                {/* Overlay for legibility - Lighter to show more video */}
+                <div className="absolute inset-0 bg-devx-dark/60 bg-gradient-to-t from-devx-dark to-transparent"></div>
+            </div>
 
-            {/* Circuit overlay (SVG) */}
-            <svg className="absolute inset-0 w-full h-full opacity-20 pointer-events-none" xmlns="http://www.w3.org/2000/svg">
-                <pattern id="circuit" x="0" y="0" width="100" height="100" patternUnits="userSpaceOnUse">
-                    <path d="M10 10 L30 10 L30 30 L50 30" fill="none" stroke="currentColor" strokeWidth="0.5" className="text-devx-accent" />
-                    <circle cx="50" cy="30" r="1" fill="currentColor" className="text-devx-accent" />
-                </pattern>
-                <rect width="100%" height="100%" fill="url(#circuit)" />
-            </svg>
+            {/* Binary stream component (Optional: kept for tech feel, effectively overlaying the video) */}
+            <BinaryStream />
 
             {/* Glow Center */}
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-devx-accent/10 rounded-full blur-[120px] pointer-events-none"></div>
 
-            <div className="container mx-auto px-6 grid grid-cols-1 lg:grid-cols-2 gap-12 items-center relative z-10">
+            <div className="container mx-auto px-6 flex flex-col items-center justify-center relative z-10 text-center">
                 <motion.div
                     initial={{ opacity: 0, x: -50 }}
                     animate={{ opacity: 1, x: 0 }}
                     transition={{ duration: 0.8 }}
-                    className="text-center lg:text-left"
+                    className="max-w-4xl mx-auto"
                 >
                     <motion.div
                         className="inline-block relative mb-8"
@@ -83,13 +88,13 @@ export default function Hero() {
                         Experiences.
                     </h1>
 
-                    <div className="space-y-2 mb-10 text-lg md:text-xl text-white/70 font-light border-l-4 border-devx-accent pl-6">
+                    <div className="space-y-4 mb-10 text-lg md:text-xl text-white/70 font-light">
                         <p className="leading-relaxed">Building the future is our mission.</p>
                         <p className="leading-relaxed">Wherever DevX exists, solutions exist.</p>
                         <p className="leading-relaxed">Your goal becomes our purpose.</p>
                     </div>
 
-                    <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start space-y-4 sm:space-y-0 sm:space-x-6">
+                    <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6">
                         <motion.button
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
@@ -98,58 +103,19 @@ export default function Hero() {
                         >
                             Start a Project
                         </motion.button>
-                        <motion.a
-                            href="#contact"
+                        <motion.button
+                            onClick={() => setIsContactOpen(true)}
                             whileHover={{ scale: 1.05 }}
                             whileTap={{ scale: 0.95 }}
                             className="px-8 py-4 bg-white/5 border border-white/10 text-white font-semibold rounded-full hover:bg-white/10 hover:border-devx-accent/50 transition-all w-full sm:w-auto inline-block text-center"
                         >
                             Contact Us
-                        </motion.a>
+                        </motion.button>
                     </div>
                 </motion.div>
 
                 {/* 3D Decorative Cards Right Side */}
-                <motion.div
-                    initial={{ opacity: 0, x: 50 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ duration: 0.8, delay: 0.2 }}
-                    className="relative hidden lg:block h-[600px]"
-                >
-                    {/* Floating Cards Mockup */}
-                    <motion.div
-                        animate={{ y: [0, -20, 0] }}
-                        transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-                        className="absolute top-20 right-10 w-80 h-96 bg-devx-glass backdrop-blur-md rounded-2xl border border-white/10 p-6 shadow-2xl z-20"
-                    >
-                        <div className="w-full h-40 bg-gradient-to-tr from-devx-accent/20 to-purple-500/20 rounded-lg mb-6 flex items-center justify-center">
-                            <div className="w-16 h-16 rounded-full bg-devx-accent/20 blur-xl"></div>
-                        </div>
-                        <div className="space-y-3">
-                            <div className="h-2 bg-white/10 rounded w-3/4"></div>
-                            <div className="h-2 bg-white/10 rounded w-1/2"></div>
-                            <div className="h-2 bg-white/10 rounded w-5/6"></div>
-                        </div>
-                        <div className="mt-8 flex justify-between items-center">
-                            <div className="w-8 h-8 rounded-full bg-devx-accent/50"></div>
-                            <div className="w-20 h-8 bg-white/5 rounded-full"></div>
-                        </div>
-                    </motion.div>
 
-                    <motion.div
-                        animate={{ y: [0, 30, 0] }}
-                        transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                        className="absolute top-60 left-10 w-72 h-80 bg-devx-dark/90 backdrop-blur-md rounded-2xl border border-devx-accent/30 p-6 shadow-[0_0_40px_rgba(77,123,255,0.15)] z-10"
-                    >
-                        {/* Code snippet decoration */}
-                        <div className="font-mono text-xs text-devx-accent/80 space-y-2">
-                            <p><span className="text-purple-400">const</span> <span className="text-blue-300">future</span> = <span className="text-yellow-300">await</span> build();</p>
-                            <p><span className="text-purple-400">if</span> (success) {`{`}</p>
-                            <p className="pl-4">scale(100);</p>
-                            <p>{`}`}</p>
-                        </div>
-                    </motion.div>
-                </motion.div>
             </div>
         </section>
     );

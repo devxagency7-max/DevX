@@ -31,14 +31,12 @@ export default function ClientsCarousel() {
                 centeredSlides={true}
                 slidesPerView="auto"
                 loop={true}
-                speed={3000} // Slow continuous scroll feel
+                speed={1500} // Faster continuous scroll
                 autoplay={{
                     delay: 0,
                     disableOnInteraction: false,
-                    pauseOnMouseEnter: true, // Pause on hover as requested
-                    reverseDirection: true, // Scroll right to left (default is left to right, reverse makes it right to left visually?) - actually Swiper default is LTR. 
-                    // Requirement: "Auto-scroll from right to left". Swiper usually goes LTR. RTL mode exists.
-                    // Let's rely on standard LTR but ensure it looks infinite.
+                    pauseOnMouseEnter: false, // Smoother experience without stopping
+                    reverseDirection: true,
                 }}
                 coverflowEffect={{
                     rotate: 0,

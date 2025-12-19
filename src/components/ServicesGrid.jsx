@@ -1,161 +1,247 @@
-import React, { useRef } from 'react';
-import { motion, useScroll, useTransform, useMotionTemplate, useMotionValue } from 'framer-motion';
-import { ArrowUpRight } from 'lucide-react';
+import React from 'react';
+import { motion } from 'framer-motion';
+import {
+    Globe, Smartphone, Briefcase, Brain, Puzzle, Rocket, Headphones,
+    Layers, DollarSign, Package, Users, Factory, HeartHandshake, PieChart, CheckCircle2
+} from 'lucide-react';
+import { ErpCoreBg, FinanceBg, InventoryBg, HrBg, OperationsBg, CrmBg, AnalyticsBg } from './ServiceBackgrounds';
 
-const services = [
-    'Custom Software Development',
-    'AI Model Fine-tuning',
-    'E-Commerce Platforms',
-    'SaaS Product Development',
-    'Mobile App Development',
-    'Blockchain Solutions',
-    'DevOps & Automation',
-    'Data Science & Analytics',
-    'Legacy System Modernization'
+const generalServices = [
+    {
+        icon: <Globe />,
+        title: "Web Services",
+        items: [
+            "Website Design & Development",
+            "Company Portfolio Websites",
+            "Landing Pages",
+            "Custom Web Applications",
+            "Admin Dashboards",
+            "SaaS Platforms"
+        ]
+    },
+    {
+        icon: <Smartphone />,
+        title: "Mobile & Systems",
+        items: [
+            "Mobile-Friendly Web Apps",
+            "Cross-Platform Solutions",
+            "Internal Business Systems",
+            "CRM Systems",
+            "ERP Systems"
+        ]
+    },
+    {
+        icon: <Briefcase />,
+        title: "Business Solutions",
+        items: [
+            "Startup MVP Development",
+            "Business Automation Solutions",
+            "Digital Transformation",
+            "Custom Software Solutions",
+            "Technical Consulting"
+        ]
+    },
+    {
+        icon: <Brain />,
+        title: "Data & AI Services",
+        items: [
+            "Data Analysis Reports",
+            "AI Model Development",
+            "Business Intelligence Dashboards",
+            "Data-Driven Decision Support",
+            "Automation with AI"
+        ]
+    },
+    {
+        icon: <Puzzle />,
+        title: "Integrations",
+        items: [
+            "Payment Systems Integration",
+            "API Integrations",
+            "Email & SMS Services",
+            "Analytics Tools Integration",
+            "Third-Party Platforms"
+        ]
+    },
+    {
+        icon: <Rocket />,
+        title: "Performance & Growth",
+        items: [
+            "Website Optimization",
+            "Speed & Performance Tuning",
+            "SEO-Friendly Development",
+            "Conversion Rate Optimization (CRO)"
+        ]
+    },
+    {
+        icon: <Headphones />,
+        title: "Support & Maintenance",
+        items: [
+            "Website Maintenance",
+            "Bug Fixing",
+            "Feature Enhancements",
+            "Long-Term Technical Support",
+            "System Monitoring"
+        ]
+    }
 ];
 
-// Particle Background Component
-const ParticleBackground = () => {
-    // Generate random particles
-    const particles = Array.from({ length: 20 }).map((_, i) => ({
-        id: i,
-        x: Math.random() * 100,
-        y: Math.random() * 100,
-        size: Math.random() * 3 + 1,
-        duration: Math.random() * 10 + 10,
-    }));
+const erpServices = [
+    {
+        icon: <Layers />,
+        Background: ErpCoreBg,
+        title: "ERP Core",
+        items: [
+            "ERP System Design",
+            "ERP Architecture Planning",
+            "Custom ERP Development",
+            "Modular ERP Systems",
+            "Scalable ERP Solutions",
+            "Cloud-Based ERP",
+            "On-Premise ERP"
+        ]
+    },
+    {
+        icon: <DollarSign />,
+        Background: FinanceBg,
+        title: "Finance & Accounting",
+        items: [
+            "Accounting Modules",
+            "Financial Reporting",
+            "General Ledger (GL)",
+            "Accounts Payable & Receivable",
+            "Invoicing Systems",
+            "Tax Management",
+            "Budgeting & Forecasting"
+        ]
+    },
+    {
+        icon: <Package />,
+        Background: InventoryBg,
+        title: "Inventory & Supply Chain",
+        items: [
+            "Inventory Management Systems",
+            "Stock Tracking",
+            "Warehouse Management",
+            "Supply Chain Automation",
+            "Procurement Systems",
+            "Vendor Management"
+        ]
+    },
+    {
+        icon: <Users />,
+        Background: HrBg,
+        title: "HR & Payroll",
+        items: [
+            "HR Management Systems (HRMS)",
+            "Employee Records",
+            "Attendance & Leave Management",
+            "Payroll Systems",
+            "Performance Evaluation",
+            "Recruitment Modules"
+        ]
+    },
+    {
+        icon: <Factory />,
+        Background: OperationsBg,
+        title: "Operations & Manufacturing",
+        items: [
+            "Production Planning",
+            "Manufacturing ERP",
+            "Bill of Materials (BOM)",
+            "Quality Control Systems",
+            "Maintenance Management"
+        ]
+    },
+    {
+        icon: <HeartHandshake />,
+        Background: CrmBg,
+        title: "CRM (Integrated)",
+        items: [
+            "Customer Relationship Management",
+            "Sales Pipeline Management",
+            "Lead & Opportunity Tracking",
+            "Customer Support Modules",
+            "Customer Analytics"
+        ]
+    },
+    {
+        icon: <PieChart />,
+        Background: AnalyticsBg,
+        title: "Reporting & Analytics",
+        items: [
+            "ERP Dashboards",
+            "KPI Tracking",
+            "Business Intelligence (BI)",
+            "Custom Reports",
+            "Real-Time Data Monitoring"
+        ]
+    }
+];
 
-    return (
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-            {particles.map((p) => (
-                <motion.div
-                    key={p.id}
-                    initial={{ opacity: 0, x: `${p.x}%`, y: `${p.y}%` }}
-                    animate={{
-                        opacity: [0, 0.4, 0],
-                        y: [`${p.y}%`, `${p.y - 10}%`],
-                        x: [`${p.x}%`, `${p.x + (Math.random() > 0.5 ? 10 : -10)}%`]
-                    }}
-                    transition={{
-                        duration: p.duration,
-                        repeat: Infinity,
-                        ease: "easeInOut"
-                    }}
-                    className="absolute rounded-full bg-devx-accent/30 blur-[1px]"
-                    style={{ width: p.size, height: p.size }}
-                />
-            ))}
+const ServiceCard = ({ service, index }) => (
+    <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ delay: index * 0.05, duration: 0.5 }}
+        whileHover={{ y: -5 }}
+        className="group relative bg-white/5 backdrop-blur-2xl border border-white/10 p-8 rounded-3xl hover:bg-white/10 hover:border-devx-accent/50 hover:shadow-[0_0_40px_rgba(77,123,255,0.15)] transition-all duration-300 flex flex-col h-full"
+    >
+        {/* Inner Gradient Glow */}
+        <div className="absolute inset-0 bg-gradient-to-br from-devx-accent/5 to-transparent opacity-0 group-hover:opacity-100 rounded-3xl transition-opacity duration-300 pointer-events-none"></div>
+        {/* Background Image/SVG */}
+        {service.Background && (
+            <div className="absolute inset-0 rounded-3xl overflow-hidden opacity-100 pointer-events-none">
+                <service.Background />
+            </div>
+        )}
+
+        <div className="relative z-10 flex flex-col h-full">
+            <div className="flex items-center gap-4 mb-6">
+                <div className="w-12 h-12 bg-gradient-to-br from-white/10 to-white/5 border border-white/10 rounded-2xl flex items-center justify-center text-devx-accent shadow-inner group-hover:scale-110 group-hover:border-devx-accent/30 transition-all duration-300 shrink-0">
+                    {React.cloneElement(service.icon, { size: 24 })}
+                </div>
+                <h3 className="text-xl font-bold text-white group-hover:text-devx-accent transition-colors">{service.title}</h3>
+            </div>
+
+            <ul className="space-y-3 flex-grow">
+                {service.items.map((item, i) => (
+                    <li key={i} className="flex items-start text-white/70 text-sm group/item">
+                        <CheckCircle2 size={16} className="mr-3 text-devx-accent/50 mt-0.5 group-hover/item:text-devx-accent transition-colors shrink-0" />
+                        <span className="group-hover/item:text-white transition-colors">{item}</span>
+                    </li>
+                ))}
+            </ul>
         </div>
-    );
-};
-
-// Card Component with Hover Light Trail
-const ServiceCard = ({ service, index }) => {
-    const cardRef = useRef(null);
-    const mouseX = useMotionValue(0);
-    const mouseY = useMotionValue(0);
-
-    const handleMouseMove = ({ currentTarget, clientX, clientY }) => {
-        const { left, top } = currentTarget.getBoundingClientRect();
-        mouseX.set(clientX - left);
-        mouseY.set(clientY - top);
-    };
-
-    return (
-        <motion.div
-            ref={cardRef}
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: index * 0.05 }}
-            onMouseMove={handleMouseMove}
-            className="group relative h-full"
-        >
-            {/* Animated Light Border Container */}
-            <div className="absolute -inset-[1px] rounded-2xl bg-gradient-to-r from-transparent via-devx-accent/50 to-transparent opacity-0 group-hover:opacity-100 blur-sm transition-opacity duration-500 group-hover:animate-spin-slow" />
-
-            {/* Moving Spotlight Effect (User's Light Trail Request variant) */}
-            <motion.div
-                className="pointer-events-none absolute -inset-px rounded-2xl opacity-0 transition duration-300 group-hover:opacity-100"
-                style={{
-                    background: useMotionTemplate`
-                        radial-gradient(
-                        650px circle at ${mouseX}px ${mouseY}px,
-                        rgba(77, 123, 255, 0.15),
-                        transparent 80%
-                        )
-                    `,
-                }}
-            />
-
-            {/* Rotating Border Glow (Alternative interpretation of Light Trail) */}
-            <div className="absolute inset-0 rounded-2xl overflow-hidden pointer-events-none">
-                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200%] h-[200%] bg-[conic-gradient(from_0deg,transparent_0deg,rgba(77,123,255,0.3)_90deg,transparent_180deg)] animate-spin-slow opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
-            </div>
-
-            {/* Main Card Content */}
-            <div className="relative h-full bg-devx-glass backdrop-blur-md border border-white/10 rounded-2xl p-8 hover:border-devx-accent/30 transition-colors shadow-lg hover:shadow-[0_10px_40px_rgba(0,0,0,0.4)] flex flex-col justify-between overflow-hidden">
-                {/* Subtle Inner Glow */}
-                <div className="absolute top-0 right-0 w-32 h-32 bg-devx-accent/10 blur-[50px] rounded-full pointer-events-none -translate-y-1/2 translate-x-1/2"></div>
-
-                <div>
-                    <div className="flex justify-between items-start mb-6">
-                        <div className="w-10 h-10 rounded-lg bg-white/5 flex items-center justify-center border border-white/5 group-hover:border-devx-accent/50 group-hover:shadow-[0_0_15px_rgba(77,123,255,0.3)] transition-all">
-                            <span className="text-devx-accent font-bold text-lg">{index + 1}</span>
-                        </div>
-                        <ArrowUpRight className="text-white/30 group-hover:text-devx-accent group-hover:translate-x-1 group-hover:-translate-y-1 transition-all" />
-                    </div>
-
-                    <h3 className="text-2xl font-semibold mb-4 group-hover:text-white transition-colors relative z-10">
-                        {service}
-                    </h3>
-                </div>
-
-                <div className="relative z-10 opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
-                    <p className="text-sm text-white/60">
-                        Advanced solutions engineered for scale and performance.
-                    </p>
-                </div>
-            </div>
-        </motion.div>
-    );
-};
+    </motion.div>
+);
 
 export default function ServicesGrid() {
     return (
-        <section id="services" className="py-24 bg-transparent relative overflow-hidden">
-            {/* Abstract Light Waves / Grid Background */}
-            <div className="absolute inset-0 pointer-events-none opacity-20">
-                <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-                    <defs>
-                        <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-                            <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255,255,255,0.1)" strokeWidth="0.5" />
-                        </pattern>
-                    </defs>
-                    <rect width="100%" height="100%" fill="url(#grid)" />
-                </svg>
-                {/* Constellations / Floating gradients */}
-                <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-b from-devx-blue/50 to-transparent"></div>
+        <section className="py-24 relative overflow-hidden">
+            {/* Decorative Background */}
+            <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
+                <div className="absolute top-[20%] right-[10%] w-[600px] h-[600px] bg-devx-blue/20 rounded-full blur-[120px]"></div>
+                <div className="absolute bottom-[10%] left-[5%] w-[500px] h-[500px] bg-devx-purple/10 rounded-full blur-[120px]"></div>
             </div>
 
-            <ParticleBackground />
-
             <div className="container mx-auto px-6 relative z-10">
-                <div className="flex flex-col md:flex-row justify-between items-end mb-16">
-                    <div>
-                        <span className="text-devx-accent font-semibold tracking-wider uppercase mb-2 block">What We Deliver</span>
-                        <h2 className="text-3xl md:text-5xl font-bold">End-to-End Solutions</h2>
+                {/* ERP Section */}
+                <div>
+                    <div className="text-center mb-16">
+                        <h2 className="text-4xl md:text-5xl font-extrabold mb-6 tracking-tight">
+                            <span className="text-transparent bg-clip-text bg-gradient-to-r from-devx-accent to-devx-purple">Products</span>
+                        </h2>
+                        <p className="text-lg text-white/60 max-w-2xl mx-auto font-light leading-relaxed">
+                            Comprehensive Enterprise Resource Planning modules to unify your workflow.
+                        </p>
                     </div>
-                    <p className="text-white/50 max-w-md mt-6 md:mt-0 text-right md:text-left">
-                        Comprehensive services tailored to your specific industry needs.
-                    </p>
-                </div>
-
-                {/* Separated Cards Grid (Gap increased) */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {services.map((service, idx) => (
-                        <ServiceCard key={idx} service={service} index={idx} />
-                    ))}
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
+                        {erpServices.map((service, idx) => (
+                            <ServiceCard key={idx} service={service} index={idx} />
+                        ))}
+                    </div>
                 </div>
             </div>
         </section>

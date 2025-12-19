@@ -4,16 +4,17 @@ import { Menu, X } from 'lucide-react';
 import { AppContext } from '../App';
 
 const navLinks = [
-    { name: 'Product', href: '#product' },
+
     { name: 'About', href: '#about' },
     { name: 'Services', href: '#services' },
+    { name: 'Product', href: '#product' },
     { name: 'Portfolio', href: '#portfolio' },
     { name: 'Clients', href: '#clients' },
     { name: 'Contact', href: '#contact' }, // Special behavior handled in click
 ];
 
 export default function Header() {
-    const { setIsStartProjectOpen, setIsContactOpen } = useContext(AppContext);
+    const { setIsStartProjectOpen } = useContext(AppContext);
     const [isScrolled, setIsScrolled] = useState(false);
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -27,13 +28,9 @@ export default function Header() {
 
     const handleNavClick = (e, name) => {
         e.preventDefault();
-        if (name === 'Contact') {
-            setIsContactOpen(true);
-        } else {
-            const element = document.getElementById(name.toLowerCase());
-            if (element) {
-                element.scrollIntoView({ behavior: 'smooth' });
-            }
+        const element = document.getElementById(name.toLowerCase());
+        if (element) {
+            element.scrollIntoView({ behavior: 'smooth' });
         }
         setMobileMenuOpen(false);
     };
@@ -53,7 +50,7 @@ export default function Header() {
                     <img
                         src="/assets/devx-logo.png"
                         alt="DevX"
-                        className="h-10 w-auto relative z-10 drop-shadow-[0_0_10px_rgba(77,123,255,0.5)]"
+                        className="h-16 w-auto relative z-10 drop-shadow-[0_0_10px_rgba(77,123,255,0.5)]"
                     />
                 </a>
 

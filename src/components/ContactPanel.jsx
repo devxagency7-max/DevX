@@ -1,13 +1,12 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { X, Send, MapPin, Mail, MessageSquare } from 'lucide-react';
+import { X, Send, MapPin, Mail, Phone, MessageSquare } from 'lucide-react';
 
 export default function ContactPanel({ isOpen, onClose }) {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
-        company: '',
-        service: '',
+
         message: ''
     });
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -31,13 +30,63 @@ export default function ContactPanel({ isOpen, onClose }) {
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: '100%' }}
             transition={{ type: 'tween', duration: 0.4 }}
-            className="fixed inset-y-0 right-0 z-50 w-full max-w-lg bg-devx-blue/95 backdrop-blur-xl border-l border-white/10 shadow-2xl p-8 flex flex-col overflow-y-auto"
+            className="fixed inset-y-0 right-0 z-50 w-full max-w-2xl bg-devx-blue/95 backdrop-blur-xl border-l border-white/10 shadow-2xl p-8 flex flex-col overflow-y-auto"
         >
-            <div className="flex justify-between items-center mb-10">
+            <div className="flex justify-between items-center mb-6">
                 <h2 className="text-2xl font-bold text-white">Get in Touch</h2>
                 <button onClick={onClose} className="p-2 hover:bg-white/10 rounded-full transition-colors">
                     <X size={24} className="text-white/70" />
                 </button>
+            </div>
+
+            {/* Top Image */}
+            <div className="w-full mb-8">
+                <img
+                    src="/assets/conact_us.png"
+                    alt="Contact Us"
+                    className="w-full h-48 object-cover rounded-xl border border-white/10 shadow-lg"
+                />
+            </div>
+
+            {/* Contact Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                {/* Email Card */}
+                <a
+                    href="mailto:devx.agency7@gmail.com"
+                    className="bg-white/5 p-4 rounded-xl border border-white/10 hover:bg-white/10 hover:border-devx-accent/50 transition-all flex flex-col items-center text-center group"
+                >
+                    <div className="bg-devx-accent/10 p-3 rounded-full mb-3 group-hover:bg-devx-accent/20 transition-colors">
+                        <Mail size={20} className="text-devx-accent" />
+                    </div>
+                    <h3 className="font-bold text-white mb-1">Email</h3>
+                    <p className="text-xs text-white/60 break-all">devx.agency7@gmail.com</p>
+                </a>
+
+                {/* Phone Card */}
+                <a
+                    href="tel:+201107130093"
+                    className="bg-white/5 p-4 rounded-xl border border-white/10 hover:bg-white/10 hover:border-devx-accent/50 transition-all flex flex-col items-center text-center group"
+                >
+                    <div className="bg-devx-accent/10 p-3 rounded-full mb-3 group-hover:bg-devx-accent/20 transition-colors">
+                        <Phone size={20} className="text-devx-accent" />
+                    </div>
+                    <h3 className="font-bold text-white mb-1">Phone</h3>
+                    <p className="text-xs text-white/60">+20 110 713 0093</p>
+                </a>
+
+                {/* Location Card */}
+                <a
+                    href="https://maps.app.goo.gl/QpuQGiK8heiBfKa88"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="bg-white/5 p-4 rounded-xl border border-white/10 hover:bg-white/10 hover:border-devx-accent/50 transition-all flex flex-col items-center text-center group"
+                >
+                    <div className="bg-devx-accent/10 p-3 rounded-full mb-3 group-hover:bg-devx-accent/20 transition-colors">
+                        <MapPin size={20} className="text-devx-accent" />
+                    </div>
+                    <h3 className="font-bold text-white mb-1">Location</h3>
+                    <p className="text-xs text-white/60">Beni Suef, Egypt</p>
+                </a>
             </div>
 
             {!isSuccess ? (
@@ -64,39 +113,20 @@ export default function ContactPanel({ isOpen, onClose }) {
                         />
                     </div>
 
-                    <div>
-                        <label className="block text-sm font-medium text-white/60 mb-2">Company</label>
-                        <input
-                            name="company"
-                            onChange={handleChange}
-                            type="text"
-                            className="w-full bg-black/20 border border-white/10 rounded-lg px-4 py-3 text-white focus:border-devx-accent focus:ring-1 focus:ring-devx-accent outline-none transition-all"
-                        />
-                    </div>
 
-                    <div>
-                        <label className="block text-sm font-medium text-white/60 mb-2">Interested In</label>
-                        <select
-                            name="service"
-                            onChange={handleChange}
-                            className="w-full bg-black/20 border border-white/10 rounded-lg px-4 py-3 text-white focus:border-devx-accent focus:ring-1 focus:ring-devx-accent outline-none transition-all"
-                        >
-                            <option value="" className="bg-devx-dark">Select a service...</option>
-                            <option value="web" className="bg-devx-dark">Web Development</option>
-                            <option value="app" className="bg-devx-dark">Mobile Application</option>
-                            <option value="ai" className="bg-devx-dark">AI Solutions</option>
-                            <option value="design" className="bg-devx-dark">UI/UX Design</option>
-                        </select>
-                    </div>
 
                     <div>
                         <label className="block text-sm font-medium text-white/60 mb-2">Message</label>
                         <textarea
                             required
                             name="message"
-                            onChange={handleChange}
-                            rows={4}
-                            className="w-full bg-black/20 border border-white/10 rounded-lg px-4 py-3 text-white focus:border-devx-accent focus:ring-1 focus:ring-devx-accent outline-none transition-all"
+                            onChange={(e) => {
+                                handleChange(e);
+                                e.target.style.height = 'auto';
+                                e.target.style.height = e.target.scrollHeight + 'px';
+                            }}
+                            rows={2}
+                            className="w-full bg-black/20 border border-white/10 rounded-lg px-4 py-3 text-white focus:border-devx-accent focus:ring-1 focus:ring-devx-accent outline-none transition-all resize-none overflow-hidden"
                         ></textarea>
                     </div>
 
@@ -115,15 +145,8 @@ export default function ContactPanel({ isOpen, onClose }) {
                         )}
                     </button>
 
-                    <div className="pt-8 mt-8 border-t border-white/10 space-y-4">
-                        <div className="flex items-center space-x-3 text-white/60">
-                            <MapPin size={18} className="text-devx-accent" />
-                            <span>Beni Suef, Egypt</span>
-                        </div>
-                        <div className="flex items-center space-x-3 text-white/60">
-                            <Mail size={18} className="text-devx-accent" />
-                            <span>contact@devx.com</span>
-                        </div>
+                    <div className="pt-8 mt-8 border-t border-white/10">
+                        <p className="text-center text-white/40 text-sm">We typically respond within 2 hours during business days.</p>
                     </div>
                 </form>
             ) : (

@@ -1,19 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
 import { X, Check, ChevronRight, Upload } from 'lucide-react';
 
 const steps = [
     { id: 1, title: 'Project Details' },
-    { id: 2, title: 'Scope & Budget' },
-    { id: 3, title: 'Contact Info' },
+    { id: 2, title: 'Contact Info' },
 ];
 
 export default function StartProjectPanel({ isOpen, onClose }) {
     const [currentStep, setCurrentStep] = useState(1);
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
-
-    // Focus trap could be implemented here with useEffect
 
     const handleNext = () => {
         if (currentStep < steps.length) setCurrentStep(currentStep + 1);
@@ -23,14 +20,12 @@ export default function StartProjectPanel({ isOpen, onClose }) {
         if (currentStep > 1) setCurrentStep(currentStep - 1);
     };
 
-    const handleSubmit = (e) => {
-        e.preventDefault();
+    const handleLaunch = async () => {
         setIsSubmitting(true);
-        // Mock submission
-        setTimeout(() => {
-            setIsSubmitting(false);
-            setIsSuccess(true);
-        }, 1500);
+        // Mock submission logic decoupled from form event
+        await new Promise(resolve => setTimeout(resolve, 1500));
+        setIsSubmitting(false);
+        setIsSuccess(true);
     };
 
     return (
@@ -82,7 +77,7 @@ export default function StartProjectPanel({ isOpen, onClose }) {
             {/* Right Column: Form */}
             <div className="flex-1 p-8 md:p-12 overflow-y-auto bg-devx-dark relative">
                 {!isSuccess ? (
-                    <form onSubmit={handleSubmit} className="max-w-2xl mx-auto h-full flex flex-col">
+                    <div className="max-w-2xl mx-auto h-full flex flex-col">
                         <div className="mb-8">
                             <h2 className="text-3xl md:text-4xl font-bold mb-4">Let's Build Something <span className="text-devx-accent">Extraordinary</span></h2>
                             <div className="flex items-center space-x-2 text-sm text-white/50">
@@ -121,36 +116,6 @@ export default function StartProjectPanel({ isOpen, onClose }) {
                             )}
 
                             {currentStep === 2 && (
-                                <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-8">
-                                    <div>
-                                        <label className="block text-sm text-white/70 mb-4">Estimated Budget (USD)</label>
-                                        <div className="grid grid-cols-2 gap-4">
-                                            {['<$5k', '$5k - $15k', '$15k - $50k', '$50k+'].map(budget => (
-                                                <label key={budget} className="cursor-pointer group">
-                                                    <input type="radio" name="budget" className="hidden peer" />
-                                                    <div className="border border-white/10 rounded-lg p-4 text-center text-white/60 peer-checked:border-devx-accent peer-checked:bg-devx-accent/10 peer-checked:text-devx-accent transition-all hover:bg-white/5">
-                                                        {budget}
-                                                    </div>
-                                                </label>
-                                            ))}
-                                        </div>
-                                    </div>
-
-                                    <div>
-                                        <label className="block text-sm text-white/70 mb-4">Scope Checklist</label>
-                                        <div className="grid grid-cols-2 gap-3">
-                                            {['Web Development', 'Mobile App', 'AI Integration', 'UI/UX Design', 'Cloud Setup', 'Maintenance'].map(item => (
-                                                <label key={item} className="flex items-center space-x-3 cursor-pointer">
-                                                    <input type="checkbox" className="w-5 h-5 rounded border-white/20 bg-white/5 text-devx-accent focus:ring-devx-accent" />
-                                                    <span className="text-white/80">{item}</span>
-                                                </label>
-                                            ))}
-                                        </div>
-                                    </div>
-                                </motion.div>
-                            )}
-
-                            {currentStep === 3 && (
                                 <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
                                     <div className="grid grid-cols-2 gap-6">
                                         <div>
@@ -195,7 +160,8 @@ export default function StartProjectPanel({ isOpen, onClose }) {
                                 </button>
                             ) : (
                                 <button
-                                    type="submit"
+                                    type="button"
+                                    onClick={handleLaunch}
                                     disabled={isSubmitting}
                                     className="flex items-center px-8 py-3 bg-devx-accent text-white font-bold rounded-lg hover:shadow-[0_0_20px_rgba(77,123,255,0.5)] transition-all disabled:opacity-70"
                                 >
@@ -203,7 +169,7 @@ export default function StartProjectPanel({ isOpen, onClose }) {
                                 </button>
                             )}
                         </div>
-                    </form>
+                    </div>
                 ) : (
                     <motion.div
                         initial={{ opacity: 0, scale: 0.9 }}
