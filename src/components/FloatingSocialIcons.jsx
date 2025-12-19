@@ -51,7 +51,7 @@ const containerVariants = {
         opacity: 1,
         transition: {
             staggerChildren: 0.1,
-            delayChildren: 1.5
+            delayChildren: 0.2
         }
     }
 };
@@ -64,7 +64,7 @@ const itemVariants = {
 export default function FloatingSocialIcons() {
     return (
         <motion.div
-            className="fixed right-2 top-1/2 -translate-y-1/2 z-[100] hidden lg:flex flex-col gap-5 items-center"
+            className="fixed right-2 top-1/2 -translate-y-1/2 z-[100] flex flex-col gap-3 md:gap-5 items-center"
             variants={containerVariants}
             initial="hidden"
             animate="visible"
@@ -84,11 +84,11 @@ export default function FloatingSocialIcons() {
                     target="_blank"
                     rel="noopener noreferrer"
                     variants={itemVariants}
-                    className={`relative p-3.5 rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md text-white/60 transition-all duration-300 group ${social.className} ${social.shadow}`}
+                    className={`relative p-2 md:p-3.5 rounded-xl md:rounded-2xl border border-white/10 bg-white/5 backdrop-blur-md text-white/60 transition-all duration-300 group ${social.className} ${social.shadow}`}
                     whileHover={{ scale: 1.2, rotate: -5 }}
                     whileTap={{ scale: 0.9 }}
                 >
-                    <social.icon size={22} strokeWidth={2} className="relative z-10 transition-transform duration-300 group-hover:scale-110" />
+                    <social.icon strokeWidth={2} className="w-5 h-5 md:w-6 md:h-6 relative z-10 transition-transform duration-300 group-hover:scale-110" />
                 </motion.a>
             ))}
 

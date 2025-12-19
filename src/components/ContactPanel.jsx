@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { X, Send, MapPin, Mail, Phone, MessageSquare } from 'lucide-react';
+import { X, Send, MapPin, Mail, Phone, MessageSquare, Facebook, Instagram, Linkedin } from 'lucide-react';
 
 export default function ContactPanel({ isOpen, onClose }) {
     const [formData, setFormData] = useState({
@@ -146,7 +146,23 @@ export default function ContactPanel({ isOpen, onClose }) {
                     </button>
 
                     <div className="pt-8 mt-8 border-t border-white/10">
-                        <p className="text-center text-white/40 text-sm">We typically respond within 2 hours during business days.</p>
+                        <p className="text-center text-white/40 text-sm mb-6">We typically respond within 2 hours during business days.</p>
+
+                        {/* Social Links from FloatingSocialIcons */}
+                        <div className="flex justify-center gap-6">
+                            <a href="https://www.facebook.com/profile.php?id=61583095754836" target="_blank" rel="noopener noreferrer" className="p-3 bg-white/5 rounded-full border border-white/10 hover:bg-[#1877F2] hover:border-[#1877F2] hover:text-white text-white/60 transition-all duration-300">
+                                <Facebook size={20} />
+                            </a>
+                            <a href="https://www.instagram.com/devx.tech7/" target="_blank" rel="noopener noreferrer" className="p-3 bg-white/5 rounded-full border border-white/10 hover:bg-gradient-to-tr hover:from-[#f09433] hover:via-[#dc2743] hover:to-[#bc1888] hover:border-transparent hover:text-white text-white/60 transition-all duration-300">
+                                <Instagram size={20} />
+                            </a>
+                            <a href="https://www.linkedin.com/in/dev-x-bbb364399/" target="_blank" rel="noopener noreferrer" className="p-3 bg-white/5 rounded-full border border-white/10 hover:bg-[#0077b5] hover:border-[#0077b5] hover:text-white text-white/60 transition-all duration-300">
+                                <Linkedin size={20} />
+                            </a>
+                            <a href="https://t.me/+201107130093" target="_blank" rel="noopener noreferrer" className="p-3 bg-white/5 rounded-full border border-white/10 hover:bg-[#0088cc] hover:border-[#0088cc] hover:text-white text-white/60 transition-all duration-300">
+                                <Send size={20} />
+                            </a>
+                        </div>
                     </div>
                 </form>
             ) : (

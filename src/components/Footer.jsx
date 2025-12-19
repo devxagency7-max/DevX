@@ -5,11 +5,10 @@ export default function Footer() {
     const currentYear = new Date().getFullYear();
 
     const socialLinks = [
-        { icon: <Instagram size={20} />, href: '#', label: 'Instagram' },
-        { icon: <Facebook size={20} />, href: '#', label: 'Facebook' },
-        { icon: <Linkedin size={20} />, href: '#', label: 'LinkedIn' },
-        { icon: <Github size={20} />, href: '#', label: 'GitHub' },
-        { icon: <Mail size={20} />, href: 'mailto:info@devx.com', label: 'Email' },
+        { icon: <Instagram size={20} />, href: 'https://www.instagram.com/devx.tech7/', label: 'Instagram' },
+        { icon: <Facebook size={20} />, href: 'https://www.facebook.com/profile.php?id=61583095754836', label: 'Facebook' },
+        { icon: <Linkedin size={20} />, href: 'https://www.linkedin.com/in/dev-x-bbb364399/', label: 'LinkedIn' },
+        { icon: <Mail size={20} />, href: 'mailto:devx.agency7@gmail.com', label: 'Email' },
     ];
 
     return (

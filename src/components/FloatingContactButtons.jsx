@@ -88,7 +88,7 @@ export default function FloatingContactButtons() {
                                 animate={{ opacity: 1, x: 0 }}
                                 transition={{ delay: 0.2 }}
                             >
-                                Hello 👋, welcome to opream
+                                Hello 👋, welcome to DevX
                                 <span className="text-[10px] text-gray-400 block text-right mt-1">10:00 AM</span>
                             </motion.div>
 
