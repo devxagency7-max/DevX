@@ -56,7 +56,7 @@ export default function FloatingContactButtons() {
             <AnimatePresence>
                 {isChatOpen && (
                     <motion.div
-                        className="fixed bottom-24 left-6 w-[90vw] md:w-[450px] bg-white rounded-2xl shadow-2xl overflow-hidden z-[60] origin-bottom-left font-sans"
+                        className="fixed bottom-24 left-6 w-[80vw] md:w-[450px] bg-white rounded-2xl shadow-2xl overflow-hidden z-[60] origin-bottom-left font-sans"
                         initial={{ opacity: 0, scale: 0.9, y: 20 }}
                         animate={{ opacity: 1, scale: 1, y: 0 }}
                         exit={{ opacity: 0, scale: 0.9, y: 20 }}

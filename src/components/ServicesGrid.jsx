@@ -219,7 +219,7 @@ const ServiceCard = ({ service, index }) => (
 
 export default function ServicesGrid() {
     return (
-        <section className="py-24 relative overflow-hidden">
+        <section id="products" className="py-24 relative overflow-hidden">
             {/* Decorative Background */}
             <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
                 <div className="absolute top-[20%] right-[10%] w-[600px] h-[600px] bg-devx-blue/20 rounded-full blur-[120px]"></div>

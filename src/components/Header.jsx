@@ -7,7 +7,7 @@ const navLinks = [
 
     { name: 'About', href: '#about' },
     { name: 'Services', href: '#services' },
-    { name: 'Product', href: '#product' },
+    { name: 'Products', href: '#products' },
     { name: 'Portfolio', href: '#portfolio' },
     { name: 'Clients', href: '#clients' },
     { name: 'Contact', href: '#contact' }, // Special behavior handled in click

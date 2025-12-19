@@ -86,7 +86,7 @@ const services = [
 
 export default function FeaturesGrid() {
     return (
-        <section className="py-24 relative overflow-hidden">
+        <section id="services" className="py-24 relative overflow-hidden">
             {/* Decorative Background Blobs */}
             <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none">
                 <div className="absolute top-[10%] left-[5%] w-[500px] h-[500px] bg-devx-blue/30 rounded-full blur-[120px]"></div>
