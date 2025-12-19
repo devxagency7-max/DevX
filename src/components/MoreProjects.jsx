@@ -11,6 +11,10 @@ export default function MoreProjects() {
     const [selectedProject, setSelectedProject] = useState(null);
     const { setIsStartProjectOpen } = useContext(AppContext);
 
+    React.useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
+
     return (
         <div className="relative min-h-screen bg-devx-dark text-white pt-24 pb-12">
 

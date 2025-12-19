@@ -56,7 +56,7 @@ export default function FloatingContactButtons() {
             <AnimatePresence>
                 {isChatOpen && (
                     <motion.div
-                        className="fixed bottom-24 left-6 w-[350px] bg-white rounded-2xl shadow-2xl overflow-hidden z-[60] origin-bottom-left font-sans"
+                        className="fixed bottom-24 left-6 w-[90vw] md:w-[450px] bg-white rounded-2xl shadow-2xl overflow-hidden z-[60] origin-bottom-left font-sans"
                         initial={{ opacity: 0, scale: 0.9, y: 20 }}
                         animate={{ opacity: 1, scale: 1, y: 0 }}
                         exit={{ opacity: 0, scale: 0.9, y: 20 }}
@@ -83,7 +83,7 @@ export default function FloatingContactButtons() {
 
                             {/* Messages */}
                             <motion.div
-                                className="bg-white p-3 rounded-tr-xl rounded-br-xl rounded-bl-xl shadow-sm text-gray-800 text-sm max-w-[85%] self-start relative z-10"
+                                className="bg-white p-3 rounded-tr-xl rounded-br-xl rounded-bl-xl shadow-sm text-gray-800 text-lg max-w-[85%] self-start relative z-10"
                                 initial={{ opacity: 0, x: -10 }}
                                 animate={{ opacity: 1, x: 0 }}
                                 transition={{ delay: 0.2 }}
@@ -93,7 +93,7 @@ export default function FloatingContactButtons() {
                             </motion.div>
 
                             <motion.div
-                                className="bg-white p-3 rounded-tr-xl rounded-br-xl rounded-bl-xl shadow-sm text-gray-800 text-sm max-w-[85%] self-start relative z-10"
+                                className="bg-white p-3 rounded-tr-xl rounded-br-xl rounded-bl-xl shadow-sm text-gray-800 text-lg max-w-[85%] self-start relative z-10"
                                 initial={{ opacity: 0, x: -10 }}
                                 animate={{ opacity: 1, x: 0 }}
                                 transition={{ delay: 0.4 }}
@@ -137,19 +137,7 @@ export default function FloatingContactButtons() {
                         onMouseEnter={() => setHoveredButton(method.id)}
                         onMouseLeave={() => setHoveredButton(null)}
                     >
-                        <AnimatePresence>
-                            {/* Only show tooltip if chat is NOT open, or for the phone button */}
-                            {hoveredButton === method.id && (!isChatOpen || method.id !== 'whatsapp') && (
-                                <motion.div
-                                    initial={{ opacity: 0, x: -10, width: 0 }}
-                                    animate={{ opacity: 1, x: 0, width: 'auto' }}
-                                    exit={{ opacity: 0, x: -10, width: 0 }}
-                                    className={`overflow-hidden whitespace-nowrap bg-white ${method.labelColor} px-4 py-2 rounded-full shadow-lg font-semibold text-sm hidden md:block`}
-                                >
-                                    {method.label}
-                                </motion.div>
-                            )}
-                        </AnimatePresence>
+                        {/* Tooltip Removed */}
 
                         {method.id === 'whatsapp' ? (
                             <motion.button
