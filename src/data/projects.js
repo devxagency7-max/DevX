@@ -1,5 +1,62 @@
 export const projects = [
     {
+        id: 12,
+        title: "SMART MARKET",
+        category: "Smart Home / Voice AI",
+        image: "/assets/PROJECT_3.jpg",
+        summary: "A smart home application that allows users to place orders using voice commands, providing a hands-free, seamless, and intelligent ordering experience.",
+        stack: ["Flutter", "Voice AI", "NLP", "IoT"],
+        features: [
+            "Voice-based order placement",
+            "Natural language voice commands",
+            "Hands-free smart interaction",
+            "Smart home device integration"
+        ],
+        kpis: [
+            "High voice recognition accuracy",
+            "Fast voice command processing",
+            "Improved user convenience"
+        ]
+    },
+    {
+        id: 11,
+        title: "SAFEGUARD AI",
+        category: "Industrial AI / SafetyTech",
+        image: "/assets/PROJECT_2.jpg",
+        summary: "An intelligent industrial safety application that uses AI to monitor worker behavior, detect hazards in real time, and prevent accidents inside factories.",
+        stack: ["Computer Vision", "AI/ML", "Python", "Edge AI"],
+        features: [
+            "Real-time hazard detection",
+            "AI-based worker behavior monitoring",
+            "Instant safety alerts",
+            "Factory accident prevention system"
+        ],
+        kpis: [
+            "Real-time monitoring accuracy",
+            "Reduced workplace accidents",
+            "Fast hazard detection response"
+        ]
+    },
+    {
+        id: 0,
+        title: "DERMAX AI",
+        category: "HealthTech / AI",
+        image: "/assets/PROJECT_1.jpg",
+        summary: "An AI-powered skincare application that analyzes skin conditions and delivers personalized treatment recommendations for healthier, clearer skin.",
+        stack: ["Flutter", "Firebase", "AI/ML", "Computer Vision"],
+        features: [
+            "AI-based skin condition analysis",
+            "Personalized skincare recommendations",
+            "Image-based skin assessment",
+            "User progress tracking"
+        ],
+        kpis: [
+            "High-accuracy skin analysis",
+            "Personalized treatment plans",
+            "Fast AI response time"
+        ]
+    },
+    {
         id: 1,
         title: "NexaPay",
         category: "FinTech",
@@ -88,5 +145,6 @@ export const projects = [
         stack: ["Swift", "Kotlin", "Node.js", "Neo4j"],
         features: ["Ad-free experience", "Privacy focus", "Community groups"],
         kpis: ["500k Active Users", "High Retention Rate"]
-    }
+    },
+
 ];

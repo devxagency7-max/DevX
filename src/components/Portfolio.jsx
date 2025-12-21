@@ -20,10 +20,10 @@ export default function Portfolio() {
                         <span className="text-devx-accent font-semibold tracking-wider uppercase mb-2 block">Our Work</span>
                         <h2 className="text-3xl md:text-5xl font-bold">Featured Projects</h2>
                     </div>
-                    <Link to="/projects" className="hidden md:inline-flex px-8 py-3 bg-devx-accent text-white font-bold rounded-full shadow-[0_0_20px_rgba(77,123,255,0.4)] hover:shadow-[0_0_40px_rgba(77,123,255,0.6)] hover:scale-105 transition-all items-center space-x-2 group">
+                    {/* <Link to="/projects" className="hidden md:inline-flex px-8 py-3 bg-devx-accent text-white font-bold rounded-full shadow-[0_0_20px_rgba(77,123,255,0.4)] hover:shadow-[0_0_40px_rgba(77,123,255,0.6)] hover:scale-105 transition-all items-center space-x-2 group">
                         <span>More Projects</span>
                         <ExternalLink size={18} className="group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-                    </Link>
+                    </Link> */}
                 </div>
 
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -68,8 +68,20 @@ export default function Portfolio() {
                                 <X />
                             </button>
 
-                            <div className="h-64 sm:h-80 bg-gradient-to-r from-devx-accent/20 to-purple-500/20 relative">
-                                <div className="absolute bottom-8 left-8">
+                            <div className="h-64 sm:h-80 relative overflow-hidden">
+                                {selectedProject.image ? (
+                                    <>
+                                        <img
+                                            src={selectedProject.image}
+                                            alt={selectedProject.title}
+                                            className="absolute inset-0 w-full h-full object-cover"
+                                        />
+                                        <div className="absolute inset-0 bg-gradient-to-t from-black/90 to-transparent" />
+                                    </>
+                                ) : (
+                                    <div className="absolute inset-0 bg-gradient-to-r from-devx-accent/20 to-purple-500/20" />
+                                )}
+                                <div className="absolute bottom-8 left-8 z-10">
                                     <span className="inline-block px-4 py-1 rounded-full bg-devx-accent text-white text-sm font-semibold mb-4">{selectedProject.category}</span>
                                     <h2 className="text-4xl sm:text-5xl font-bold text-white mb-2">{selectedProject.title}</h2>
                                 </div>

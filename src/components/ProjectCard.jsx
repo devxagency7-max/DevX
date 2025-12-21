@@ -12,13 +12,20 @@ export default function ProjectCard({ project, onClick }) {
                 <div className="absolute inset-0 bg-devx-accent/20 opacity-0 group-hover:opacity-100 transition-opacity z-10 flex items-center justify-center">
                     <span className="bg-white/10 backdrop-blur-md px-6 py-2 rounded-full text-white font-medium">View Case Study</span>
                 </div>
-                {/* Fallback pattern if image fails or use gradient */}
-                <div className="w-full h-full bg-gradient-to-br from-gray-800 to-gray-900 group-hover:scale-105 transition-transform duration-500">
-                    {/* Placeholder content since we don't have project specific images */}
-                    <div className="w-full h-full flex items-center justify-center text-white/20 text-4xl font-bold">
-                        {project.title[0]}
+                {project.image ? (
+                    <img
+                        src={project.image}
+                        alt={project.title}
+                        className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                ) : (
+                    <div className="w-full h-full bg-gradient-to-br from-gray-800 to-gray-900 group-hover:scale-105 transition-transform duration-500">
+                        {/* Placeholder content since we don't have project specific images */}
+                        <div className="w-full h-full flex items-center justify-center text-white/20 text-4xl font-bold">
+                            {project.title[0]}
+                        </div>
                     </div>
-                </div>
+                )}
             </div>
             <h3 className="text-2xl font-bold mb-2 group-hover:text-devx-accent transition-colors">{project.title}</h3>
             <p className="text-devx-accent/80 text-sm mb-2">{project.category}</p>
